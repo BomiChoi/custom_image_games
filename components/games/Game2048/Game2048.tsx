@@ -104,7 +104,6 @@ export function Game2048({ themeId, shortId, themeImages }: Game2048Props) {
           style={{
             gridTemplateColumns: `repeat(4, ${TILE_SIZE}px)`,
             gap: TILE_GAP,
-            padding: TILE_GAP / 2,
           }}
         >
           {board.flat().map((value, i) => (

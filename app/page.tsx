@@ -20,12 +20,12 @@ interface PublicTheme {
 function GameCard({ type, onCreateTheme }: { type: GameType; onCreateTheme: (t: GameType) => void }) {
   const meta = GAME_META[type];
   return (
-    <div className="bg-white rounded-2xl shadow-sm overflow-hidden group hover:shadow-md transition-shadow">
-      <div className={`h-28 bg-gradient-to-br ${meta.color} flex items-center justify-center`}>
-        <span className="text-xl font-black text-white/90 text-center px-2">{meta.label}</span>
+    <div className="bg-white rounded-2xl shadow-sm overflow-hidden group hover:shadow-md transition-shadow flex flex-col">
+      <div className={`h-16 bg-gradient-to-br ${meta.color} flex items-center justify-center`}>
+        <span className="text-lg font-black text-white/90 text-center px-2 leading-tight">{meta.label}</span>
       </div>
-      <div className="p-4">
-        <p className="text-xs text-gray-500 mb-3">{meta.description}</p>
+      <div className="p-3 flex flex-col flex-1">
+        <p className="text-xs text-gray-500 mb-3 flex-1">{meta.description}</p>
         <div className="flex gap-2">
           <Link
             href={meta.path}

@@ -25,7 +25,7 @@ export default async function SlidePuzzleThemePage({
       themeId={theme.id}
       shortId={shortId}
       themeImages={theme.theme_images}
-      gridSize={theme.puzzle_size ?? 3}
+      gridSize={theme.puzzle_size ?? 4}
     />
   );
 }

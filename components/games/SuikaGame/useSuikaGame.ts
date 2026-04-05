@@ -8,6 +8,7 @@ export interface FruitBody {
   body: Body;
   level: number;
   id: number;
+  droppedAt: number;
 }
 
 const WALL_THICKNESS = 30;
@@ -89,7 +90,7 @@ export function useSuikaGame(canvasWidth: number, canvasHeight: number) {
               label: `fruit_${++idCounter}`,
             });
             W.add(engine_.world, newBody);
-            fruitsRef.current.push({ body: newBody, level: newLevel, id: idCounter });
+            fruitsRef.current.push({ body: newBody, level: newLevel, id: idCounter, droppedAt: Date.now() });
           }
 
           setScore((s) => s + SUIKA_LEVELS[level].score * 2);
@@ -116,7 +117,7 @@ export function useSuikaGame(canvasWidth: number, canvasHeight: number) {
         label: `fruit_${++idCounter}`,
       });
       World.add(engineRef.current.world, body);
-      fruitsRef.current.push({ body, level, id: idCounter });
+      fruitsRef.current.push({ body, level, id: idCounter, droppedAt: Date.now() });
       setNextLevel(Math.floor(Math.random() * 5));
     },
     [gameOver, nextLevel, canvasWidth]
@@ -127,9 +128,13 @@ export function useSuikaGame(canvasWidth: number, canvasHeight: number) {
     const Matter = await import("matter-js");
     Matter.Engine.update(engineRef.current, 1000 / 60);
 
-    // 게임 오버 감지: 과일이 drop 라인보다 위에 있으면
+    // 게임 오버 감지: 드롭 후 1초 이상 지난 과일이 drop 라인 위에 정지해 있으면
+    const now = Date.now();
     const over = fruitsRef.current.some(
-      (f) => f.body.position.y - SUIKA_LEVELS[f.level].size / 2 < DROP_LINE_Y && f.body.speed < 0.5
+      (f) =>
+        now - f.droppedAt > 1000 &&
+        f.body.position.y - SUIKA_LEVELS[f.level].size / 2 < DROP_LINE_Y &&
+        f.body.speed < 0.5
     );
     if (over) setGameOver(true);
 
