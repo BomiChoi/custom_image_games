@@ -1,16 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { GAME_META } from "@/constants/games";
+import { getTheme } from "@/lib/supabase/getTheme";
 import type { GameType } from "@/types/game";
-
-async function getTheme(shortId: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/themes/${shortId}`,
-    { cache: "no-store" }
-  );
-  if (!res.ok) return null;
-  return res.json();
-}
 
 export async function generateMetadata({ params }: { params: Promise<{ shortId: string }> }) {
   const { shortId } = await params;

@@ -1,14 +1,6 @@
 import { notFound } from "next/navigation";
 import { SuikaGame } from "@/components/games/SuikaGame/SuikaGame";
-
-async function getTheme(shortId: string) {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/themes/${shortId}`,
-    { cache: "no-store" }
-  );
-  if (!res.ok) return null;
-  return res.json();
-}
+import { getTheme } from "@/lib/supabase/getTheme";
 
 export default async function SuikaThemePage({
   params,
