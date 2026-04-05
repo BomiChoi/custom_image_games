@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ImageUploader } from "./ImageUploader";
 import { nanoid } from "nanoid";
 
@@ -14,15 +14,15 @@ export function MultiSlotUploader({ maxSlots, labels, onSlotsChange }: MultiSlot
   const [tmpShortId] = useState(() => `tmp_${nanoid(8)}`);
   const [slotUrls, setSlotUrls] = useState<Record<number, string>>({});
 
+  useEffect(() => {
+    onSlotsChange(slotUrls, tmpShortId, Object.keys(slotUrls).map(Number));
+  }, [slotUrls, tmpShortId, onSlotsChange]);
+
   const handleUploaded = useCallback(
     (slotIndex: number, imageUrl: string) => {
-      setSlotUrls((prev) => {
-        const next = { ...prev, [slotIndex]: imageUrl };
-        onSlotsChange(next, tmpShortId, Object.keys(next).map(Number));
-        return next;
-      });
+      setSlotUrls((prev) => ({ ...prev, [slotIndex]: imageUrl }));
     },
-    [tmpShortId, onSlotsChange]
+    []
   );
 
   const cols = maxSlots <= 4 ? maxSlots : 4;

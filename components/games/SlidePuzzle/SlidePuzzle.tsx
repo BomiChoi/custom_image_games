@@ -36,7 +36,7 @@ export function SlidePuzzle({
   const [lastNickname, setLastNickname] = useState<string>();
 
   const imageUrl = themeImages?.find((img) => img.slot_index === 0)?.image_url;
-  const BOARD = Math.min(360, typeof window !== "undefined" ? window.innerWidth - 32 : 360);
+  const BOARD = 360;
   const PIECE = Math.floor(BOARD / gridSize);
   const total = gridSize * gridSize;
 

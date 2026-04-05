@@ -16,7 +16,7 @@ interface SuikaGameProps {
   themeImages?: ThemeImage[];
 }
 
-const CANVAS_WIDTH = Math.min(360, typeof window !== "undefined" ? window.innerWidth - 32 : 360);
+const CANVAS_WIDTH = 360;
 const CANVAS_HEIGHT = 500;
 
 function buildImageMap(images?: ThemeImage[]): Record<number, string> {

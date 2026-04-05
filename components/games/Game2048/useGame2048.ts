@@ -97,12 +97,16 @@ function initBoard(): Board {
 }
 
 export function useGame2048() {
-  const [board, setBoard] = useState<Board>(initBoard);
+  const [board, setBoard] = useState<Board>(createEmptyBoard);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [won, setWon] = useState(false);
   const [moves, setMoves] = useState(0);
+
+  useEffect(() => {
+    setBoard(initBoard());
+  }, []);
 
   const maxTile = board.flat().reduce<number>((max, v) => Math.max(max, v ?? 0), 0);
 

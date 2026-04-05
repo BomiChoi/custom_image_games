@@ -16,7 +16,7 @@ interface Game2048Props {
   themeImages?: ThemeImage[];
 }
 
-const BOARD_SIZE = Math.min(360, typeof window !== "undefined" ? window.innerWidth - 32 : 360);
+const BOARD_SIZE = 360;
 const TILE_GAP = 8;
 const TILE_SIZE = Math.floor((BOARD_SIZE - TILE_GAP * 5) / 4);
 
